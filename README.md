@@ -1,3 +1,5 @@
+Note: In the GitHub repo, the MNIST training set is not included because the file is too large. Please download the train set from https://pjreddie.com/projects/mnist-in-csv/ into the data folder.
+
 Welcome to the Machine Learning Algorithms Suite!
 This suite contains the following algorithms that you can run:
 
