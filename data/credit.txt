@@ -1,0 +1,6 @@
+The first column of each CSV file should be the true label, features start from the second column
+
+Toy 1D Regression dataset is Auto Insurance in Sweden data from https://www.math.muni.cz/~kolacek/docs/frvs/M7222/data/AutoInsurSweden.txt
+Toy 1D Classification dataset 
+Toy 2D Classification dataset is ____ from ____
+MNIST dataset CSV files from https://pjreddie.com/projects/mnist-in-csv/
