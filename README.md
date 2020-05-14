@@ -18,12 +18,13 @@ Classification (can be visualized with 1D Classification Dataset):\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10. Logistic Regression with L2 Regularization using Newton's Method
 
 Classification (can be visualized with 2D Classification Dataset):\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11. Decision Tree using ID3\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12. K-Means
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11. Decision Tree using ID3
 
 Other Algorithms (cannot be visualized for now):\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;13. GMM (Gaussian Mixture Models) using Expectation-Maximization\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14. Neural Network (with one hidden layer)\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15. Recommender Systems
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12. K-Means\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;13. K-Nearest Neighbor\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14. GMM (Gaussian Mixture Models) using Expectation-Maximization\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15. Neural Network (with one hidden layer)\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16. Recommender Systems
 
-Except for Recommender Systems and Logistic Regression, all algorithms can be run on the full MNIST dataset
+Except for Recommender Systems and Logistic Regression, all algorithms can be run on the full MNIST dataset.

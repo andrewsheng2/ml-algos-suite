@@ -17,11 +17,12 @@ Classification (can be visualized with 1D Classification Dataset):
 
 Classification (can be visualized with 2D Classification Dataset):
     11. Decision Tree using ID3
-    12. K-Means
 
 Other Algorithms (cannot be visualized for now):
-    13. GMM (Gaussian Mixture Models) using Expectation-Maximization
-    14. Neural Network (with one hidden layer)
-    15. Recommender Systems
+    12. K-Means
+    13. K-Nearest Neighbor
+    14. GMM (Gaussian Mixture Models) using Expectation-Maximization
+    15. Neural Network (with one hidden layer)
+    16. Recommender Systems
 
 Except for Recommender Systems and Logistic Regression, all algorithms can be run on the full MNIST dataset
