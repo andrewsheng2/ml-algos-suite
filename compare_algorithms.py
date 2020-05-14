@@ -3,8 +3,8 @@ import sys
 import time
 
 from linear_regression import linear_regression
-from logistic_regression import gradient_descent
-from logistic_regression import newtons_method
+from logistic_regression import logistic_gradient
+from logistic_regression import logistic_newtons
 from kernel_regression import kernel_regression
 
 from decision_tree import learn_decision_tree
@@ -16,9 +16,25 @@ from recommender import learn_recommender
 
 import util
 
-def welcome():
-    f = open("README.md")
+#########################
+#### PRINT FUNCTIONS ####
+#########################
+
+def print_welcome():
+    f = open("texts/welcome.txt")
     print(f.read())
+
+def print_linear_datasets():
+    f = open("texts/linear_datasets.txt")
+    print(f.read())
+
+def print_logistic_datasets():
+    f = open("texts/logistic_datasets.txt")
+    print(f.read())
+
+#######################
+#### LOAD DATASETS ####
+#######################
 
 def csv_to_ndarray(filename):
     with open(filename) as f:
@@ -29,6 +45,7 @@ def csv_to_ndarray(filename):
     return data_numpy
 
 def load_1D_regression():
+    print("Loading data...")
     toy_1D_data = csv_to_ndarray('data/toy_1D_regression.csv')
     X_train = toy_1D_data[:45,1:]
     y_train = toy_1D_data[:45,0:1]
@@ -37,16 +54,33 @@ def load_1D_regression():
     return (X_train, y_train, X_val, y_val)
 
 def load_1D_classification():
-    pass
+    print("Loading data...")
+    toy_1D_data = csv_to_ndarray('data/toy_1D_classification.csv')
+    X_train = toy_1D_data[:40,1:]
+    y_train = toy_1D_data[:40,0:1]
+    X_val = toy_1D_data[40:,1:]
+    y_val = toy_1D_data[40:,0:1]
+    return (X_train, y_train, X_val, y_val)
 
 def load_2D_classification():
     pass
 
 def load_MNIST():
-    pass
+    print("Loading data...")
+    train_data = csv_to_ndarray('data/mnist_train.csv')
+    X_train = train_data[:,1:]
+    y_train = train_data[:,0:1]
+    val_data = csv_to_ndarray('data/mnist_val.csv')
+    X_val = val_data[:,1:]
+    y_val = val_data[:,0:1]
+    return (X_train, y_train, X_val, y_val)
 
 def load_ratings():
     pass
+
+##########################
+#### REQUESTS TO USER ####
+##########################
 
 def request_algorithm():
     alg = None
@@ -74,7 +108,7 @@ def request_dataset(num_sets):
 def request_hyperparameter(name):
     hyp = None
     while hyp == None:
-        hyp_input = input("Please provide a positive "+name+" value: ")
+        hyp_input = input("Please provide a positive value for "+name+": ")
         try:
             if float(hyp_input) <= 0: print("Error: Inpupt value is not positive")
             else: hyp = float(hyp_input)
@@ -103,12 +137,19 @@ def return_main():
         else:
             req = None
 
+########################
+#### RUN ALGORITHMS ####
+########################
+
 def run_linear(reg):
     print("\nSelected Linear Regression", end="")
     if reg: print(" with L2 Regularization.")
     else: print(".")
-    dataset = request_dataset(1)
+    print_linear_datasets()
+
+    dataset = request_dataset(2)
     if dataset == 1: X_train, y_train, X_val, y_val = load_1D_regression()
+    if dataset == 2: X_train, y_train, X_val, y_val = load_MNIST()
     lmbd = request_hyperparameter("lambda") if reg else 0
     print("Starting training...")
     start_time = time.time()
@@ -123,20 +164,50 @@ def run_linear(reg):
         util.graph_linear(w, X_train, y_train, X_val, y_val, lmbd)
     return_main()
 
-def run_logistic_grad(reg):
-    pass
+def run_logistic(mode, reg):
+    print("\nSelected Linear Regression", end="")
+    print(" using "+mode, end="")
+    if reg: print(" with L2 Regularization.")
+    else: print(".")
+    print_logistic_datasets()
 
-def run_logistic_newton(reg):
-    pass
+    dataset = request_dataset(1)
+    if dataset == 1: X_train, y_train, X_val, y_val = load_1D_classification()
+    lmbd = request_hyperparameter("lambda") if reg else 0
+    alpha = request_hyperparameter("learning rate") if mode == "Gradient Descent" else 0
+    num_iter = int(request_hyperparameter("number of iterations"))
+    print("Starting training...")
+    start_time = time.time()
+    if mode == "Gradient Descent":
+        (w, obj_train, obj_val) = logistic_gradient(X_train, y_train, X_val, y_val, lmbd, alpha, num_iter)
+    elif mode == "Newton's Method":
+        (w, obj_train, obj_val) = logistic_newtons(X_train, y_train, X_val, y_val, lmbd, num_iter)
+    end_time = time.time()
+    total = round(end_time-start_time, 4)
+    print("Finished training in", total, "seconds.")
+    print("Training Objective: ", obj_train)
+    print("Validation Objective: ", obj_val)
+    if dataset == 1 and request_visualization():
+        print("Displaying model...")
+        util.graph_logistic(w, X_train, y_train, X_val, y_val, lmbd)
+    return_main()
 
 def run_kernel():
     pass
 
+###########################
+#### MAIN RUN FUNCTION ####
+###########################
+
 def run():
-    welcome()
+    print_welcome()
     alg = request_algorithm()
     if alg == 1: run_linear(False)
-    elif alg == 2: run_linear(True)
+    if alg == 2: run_linear(True)
+    if alg == 7: run_logistic("Gradient Descent", False)
+    if alg == 8: run_logistic("Newton's Method", False)
+    if alg == 9: run_logistic("Gradient Descent", True)
+    if alg == 10: run_logistic("Newton's Method", True)
 
 if __name__ == "__main__":
     run()

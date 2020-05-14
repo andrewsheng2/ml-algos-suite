@@ -1,0 +1,4 @@
+The available datasets for linear regression are:
+    1. Toy 1D Regression*
+    2. MNIST
+* can be visualized
