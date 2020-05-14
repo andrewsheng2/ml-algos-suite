@@ -1,0 +1,4 @@
+The available datasets for kernel regression are:
+    1. Toy 1D Regression*
+    2. (Reduced) MNIST
+    * can be visualized
