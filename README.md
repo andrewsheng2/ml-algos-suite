@@ -1,6 +1,8 @@
 Note: In the GitHub repo, the MNIST training set is not included because the file is too large. Please download the train set from https://pjreddie.com/projects/mnist-in-csv/ into the data folder.
 
-Welcome to the Machine Learning Algorithms Suite!
+Welcome to the Machine Learning Algorithms Suite!\
+Start the program using the .bat (Windows) or .sh (macOS / Linux) file or run the compare_algorithms.py file\
+At least Python 3.6 needs to be installed and (for Windows users) needs to be included in PATH.\
 This suite contains the following algorithms that you can run:
 
 Regression (can be visualized with 1D Regression Dataset):\
