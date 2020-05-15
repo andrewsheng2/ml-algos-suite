@@ -5,14 +5,14 @@ import time
 from linear_regression import linear_regression
 from logistic_regression import logistic_gradient
 from logistic_regression import logistic_newtons
-from kernel_regression import kernel_regression
+# from kernel_regression import kernel_regression
 
-from decision_tree import learn_decision_tree
-from kmeans import kmeans
+# from decision_tree import learn_decision_tree
+# from kmeans import kmeans
 
-from gmm import learn_gmm
-from neural_network import learn_nerual_network
-from recommender import learn_recommender
+# from gmm import learn_gmm
+# from neural_network import learn_nerual_network
+# from recommender import learn_recommender
 
 import util
 
