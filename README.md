@@ -16,8 +16,8 @@ Regression (can be visualized with 1D Regression Dataset):\
 Classification (can be visualized with 1D Classification Dataset):\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7. Logistic Regression using Gradient Descent\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8. Logistic Regression using Newton's Method\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9. Logistic Regression with L2 Regularization using Gradient Descent\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10. Logistic Regression with L2 Regularization using Newton's Method
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9. Logistic Regression using Gradient Descent with L2 Regularization\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10. Logistic Regression using Newton's Method with L2 Regularization
 
 Classification (can be visualized with 2D Classification Dataset):\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11. Decision Tree using ID3
