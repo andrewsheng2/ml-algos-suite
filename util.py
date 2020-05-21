@@ -39,6 +39,23 @@ def graph_logistic(w, X_train, y_train, X_val, y_val, lmbd):
     plt.legend(loc="lower right")
     plt.show()
 
+def graph_kernel(X_train, y_train, X_val, y_val, kernel, lmbd, predict_points):
+    plt.figure(num='Kernel Regression', figsize=(8,5))
+    plt.xlim(0, 150)
+    plt.ylim(0, 450)
+
+    plt.plot(X_train, y_train, "ro", label="Training Points")
+    plt.plot(X_val, y_val, "bo", label="Validation Points")
+
+    x = np.asarray([[i] for i in range(-50,150)])
+    y = predict_points(x)
+    line_label = "Prediction Curve with " + kernel + " Kernel, lambda = " + str(lmbd)
+    plt.plot(x,y, "k", label=line_label)
+
+    plt.title("1D Kernel Regression")
+    plt.legend(loc="upper left")
+    plt.show()
+
 def show_decision_tree():
     pass
 

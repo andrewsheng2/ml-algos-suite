@@ -5,7 +5,7 @@ import sys
 import os
 
 from linear_regression import linear_regression
-# from kernel_regression import kernel_regression
+from kernel_regression import kernel_regression
 
 from logistic_regression import logistic_gradient
 from logistic_regression import logistic_newtons
@@ -33,6 +33,10 @@ def print_linear_datasets():
 
 def print_logistic_datasets():
     f = open("texts/logistic_datasets.txt")
+    print(f.read())
+
+def print_kernel_datasets():
+    f = open("texts/kernel_datasets.txt")
     print(f.read())
 
 def clear():
@@ -71,6 +75,16 @@ def load_1D_classification():
 def load_2D_classification():
     pass
 
+def load_reduced_MNIST():
+    print("Loading data...")
+    train_data = csv_to_ndarray('data/mnist_train.csv')
+    X_train = train_data[:2000,1:]
+    y_train = train_data[:2000,0:1]
+    val_data = csv_to_ndarray('data/mnist_val.csv')
+    X_val = val_data[:1000,1:]
+    y_val = val_data[:1000,0:1]
+    return (X_train, y_train, X_val, y_val)
+
 def load_MNIST():
     print("Loading data...")
     train_data = csv_to_ndarray('data/mnist_train.csv')
@@ -97,7 +111,7 @@ def request_algorithm(num_algs):
             if int(alg_input) in range(1,num_algs+1): alg = int(alg_input)
             else: print("Error: Not a valid selection")
         except:
-            if alg_input == "exit": sys.exit()
+            if alg_input == "exit" or alg_input == "e": sys.exit()
             print("Error: Input value is not an integer")
     return alg
 
@@ -117,7 +131,8 @@ def request_hyperparameter(name):
     # ask user to input positive float value for specified hyperparameter
     # possible hyperparameters: lambda for regularization, learning rate
     #          for gradient descent, number of iterations for gradient descent
-    #          and newton's method`
+    #          and newton's method, hyperparameters for kernels such as
+    #          width of boxcar, degree of polynomial, gamma for gaussian kernel
     hyp = None
     while hyp == None:
         hyp_input = input("Please provide a positive value for "+name+": ")
@@ -179,6 +194,7 @@ def run_linear(reg):
     print("Finished training in", total, "seconds.")
     print("Training MSE: ", mse_train)
     print("Validation MSE: ", mse_val)
+    print("Lower MSE (Mean-Squared Error) is better")
     if dataset == 1 and request_visualization():
         print("Displaying model...")
         util.graph_linear(w, X_train, y_train, X_val, y_val, lmbd)
@@ -214,10 +230,45 @@ def run_logistic(mode, reg):
     print("Finished training in", total, "seconds.")
     print("Training Objective: ", obj_train)
     print("Validation Objective: ", obj_val)
+    print("Lower objective value is better")
     if dataset == 1 and request_visualization():
         print("Displaying model...")
         util.graph_logistic(w, X_train, y_train, X_val, y_val, lmbd)
     return_main()
+
+def run_kernel(kernel):
+    print("Selected Kernel Regression", "with", kernel, "Kernel.")
+    print_kernel_datasets()
+
+    # load requested dataset
+    dataset = request_dataset(2)
+    if dataset == 1: X_train, y_train, X_val, y_val = load_1D_regression()
+    if dataset == 2: X_train, y_train, X_val, y_val = load_reduced_MNIST()
+
+    # request hyperparameters
+    lmbd = request_hyperparameter("lambda")
+    if kernel == "Boxcar": hyp = request_hyperparameter("width of boxcar")
+    if kernel == "Linear": hyp = 0
+    if kernel == "Polynomial": hyp = request_hyperparameter("degree of polynomial")
+    if kernel == "RBF": hyp = request_hyperparameter("gamma for RBF")
+
+    # start training and time
+    print("Starting training...")
+    start_time = time.time()
+    (predict_points, mse_train, mse_val) = kernel_regression(X_train, y_train, X_val, y_val, kernel, lmbd, hyp)
+    end_time = time.time()
+    total = round(end_time-start_time, 4)
+
+    # display results and request for visualization
+    print("Finished training in", total, "seconds.")
+    print("Training MSE: ", mse_train)
+    print("Validation MSE: ", mse_val)
+    print("Lower MSE (Mean-Squared Error) is better")
+    if dataset == 1 and request_visualization():
+        print("Displaying model...")
+        util.graph_kernel(X_train, y_train, X_val, y_val, kernel, lmbd, predict_points)
+    return_main()
+    pass
 
 ###########################
 #### MAIN RUN FUNCTION ####
@@ -230,6 +281,10 @@ def run():
     clear()
     if alg == 1: run_linear(False)
     if alg == 2: run_linear(True)
+    if alg == 3: run_kernel("Boxcar")
+    if alg == 4: run_kernel("Linear")
+    if alg == 5: run_kernel("Polynomial")
+    if alg == 6: run_kernel("RBF")
     if alg == 7: run_logistic("Gradient Descent", False)
     if alg == 8: run_logistic("Newton's Method", False)
     if alg == 9: run_logistic("Gradient Descent", True)
